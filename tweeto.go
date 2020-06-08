@@ -59,9 +59,14 @@ func getPreviewFromURL(uri string) (string, error) {
 				return "", fmt.Errorf("url preview cannot read response: %w", err)
 
 			}
-			// Remove Javascript
+			// Remove js and html
 			policy := bluemonday.StrictPolicy()
+			policy.RequireParseableURLs(true)
+			policy.AllowRelativeURLs(false)
+			policy.AllowURLSchemes("http", "https")
 			html := policy.Sanitize(embed.HTML)
+			// hopping keybase will preview that. Edit: nope
+			html = strings.ReplaceAll(html, "pic.twitter.com", "https://pic.twitter.com")
 
 			return "\n" + html, nil
 		}

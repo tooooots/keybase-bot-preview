@@ -10,7 +10,11 @@ import (
 	"github.com/keybase/go-keybase-chat-bot/kbchat/types/chat1"
 )
 
-// TODO add timeout ctx
+// TODO:
+// bot struct + constructor
+// add timeout ctx
+// docker image + keybase login
+// loop/bot detection
 
 func fail(msg string, args ...interface{}) {
 	fmt.Fprintf(os.Stderr, msg+"\n", args...)
@@ -22,7 +26,7 @@ func logerr(msg string, args ...interface{}) {
 }
 
 func main() {
-	const msgFilter = "!tw"
+	const msgFilter = "https://twitter.com/"
 
 	var kbLoc string
 	var kbc *kbchat.API
