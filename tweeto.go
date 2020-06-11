@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
+	"regexp"
 	"strings"
 	"time"
 
@@ -36,6 +38,22 @@ func getURLFromBody(s string) (string, error) {
 	return u, nil
 }
 
+// replacePicURL replaces the picture links to get the deeplink working on mobile
+func replacePicURL(uri string, text string) (string, error) {
+	origURL, err := url.Parse(uri)
+	if err != nil {
+		return "", err
+	}
+	// remove query from url and append photo path suffix
+	origURL.RawQuery = ""
+	picURL := origURL.String()
+	picURL = picURL + "/photo/1"
+
+	re := regexp.MustCompile(`pic.twitter.com.*`)
+	out := re.ReplaceAllString(text, picURL)
+	return out, nil
+}
+
 func getPreviewFromURL(uri string) (string, error) {
 	if strings.Contains(uri, "twitter.com") {
 		// returns a JSON oEmbed response.
@@ -65,9 +83,7 @@ func getPreviewFromURL(uri string) (string, error) {
 			policy.AllowRelativeURLs(false)
 			policy.AllowURLSchemes("http", "https")
 			html := policy.Sanitize(embed.HTML)
-			// hopping keybase will preview that. Edit: nope
-			html = strings.ReplaceAll(html, "pic.twitter.com", "https://pic.twitter.com")
-
+			html, _ = replacePicURL(uri, html)
 			return "\n" + html, nil
 		}
 		return "", fmt.Errorf("url preview error getting response: %w", err)
