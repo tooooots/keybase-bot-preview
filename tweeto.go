@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"strings"
 	"time"
+	"html"
 
 	"github.com/microcosm-cc/bluemonday"
 	"mvdan.cc/xurls/v2"
@@ -82,9 +83,11 @@ func getPreviewFromURL(uri string) (string, error) {
 			policy.RequireParseableURLs(true)
 			policy.AllowRelativeURLs(false)
 			policy.AllowURLSchemes("http", "https")
-			html := policy.Sanitize(embed.HTML)
-			html, _ = replacePicURL(uri, html)
-			return "\n" + html, nil
+			embed_html := policy.Sanitize(embed.HTML)
+			if embed_html, err = replacePicURL(uri, embed_html); err != nil {
+				return "", err
+			}
+			return "\n" + html.UnescapeString(embed_html), nil
 		}
 		return "", fmt.Errorf("url preview error getting response: %w", err)
 	}
