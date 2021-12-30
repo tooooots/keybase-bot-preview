@@ -1,5 +1,10 @@
+# github.com/aymerick/douceur v0.2.0
+github.com/aymerick/douceur/css
+github.com/aymerick/douceur/parser
 # github.com/davecgh/go-spew v1.1.0
 github.com/davecgh/go-spew/spew
+# github.com/gorilla/css v1.0.0
+github.com/gorilla/css/scanner
 # github.com/keybase/go-keybase-chat-bot v0.0.0-20200505163032-5cacf52379da
 ## explicit
 github.com/keybase/go-keybase-chat-bot/kbchat
@@ -7,16 +12,16 @@ github.com/keybase/go-keybase-chat-bot/kbchat/types/chat1
 github.com/keybase/go-keybase-chat-bot/kbchat/types/gregor1
 github.com/keybase/go-keybase-chat-bot/kbchat/types/keybase1
 github.com/keybase/go-keybase-chat-bot/kbchat/types/stellar1
-# github.com/microcosm-cc/bluemonday v1.0.2
+# github.com/microcosm-cc/bluemonday v1.0.16
 ## explicit
 github.com/microcosm-cc/bluemonday
+github.com/microcosm-cc/bluemonday/css
 # github.com/pmezard/go-difflib v1.0.0
 github.com/pmezard/go-difflib/difflib
 # github.com/stretchr/testify v1.5.1
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/require
-# golang.org/x/net v0.0.0-20200602114024-627f9648deb9
-## explicit
+# golang.org/x/net v0.0.0-20210614182718-04defd469f4e
 golang.org/x/net/html
 golang.org/x/net/html/atom
 # gopkg.in/yaml.v2 v2.2.8
